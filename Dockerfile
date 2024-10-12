@@ -6,12 +6,12 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     git \
     build-essential \
-    libpython3.10-dev && \
+    python3-dev && \
     rm -rf /var/lib/apt/lists/*
 
-# Upgrade pip and install pyyaml with verbose logging
+# Upgrade pip and install pyyaml
 RUN python3 -m pip install --upgrade pip && \
-    pip3 install --verbose pyyaml
+    pip3 install pyyaml
 
 # Copy Python script and shell script
 COPY feed.py /usr/bin/feed.py
@@ -22,4 +22,5 @@ RUN chmod +x /entrypoint.sh
 
 # Set entrypoint
 ENTRYPOINT ["/entrypoint.sh"]
+
 
