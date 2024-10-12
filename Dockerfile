@@ -17,9 +17,6 @@ RUN pip install --upgrade pip && \
 COPY feed.py /usr/bin/feed.py
 COPY entrypoint.sh /entrypoint.sh
 
-# Make entrypoint.sh executable
-RUN chmod +x /entrypoint.sh
-
 # Set the entrypoint to the shell script
 ENTRYPOINT ["/entrypoint.sh"]
 
