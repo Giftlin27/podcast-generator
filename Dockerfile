@@ -1,29 +1,28 @@
-FROM ubuntu:latest
+# Use the official Python 3.10 slim image as the base
+FROM python:3.10-slim
 
-# Install Dependencies and Python Dev Tools
+# Install required system dependencies
 RUN apt-get update && apt-get install -y \
-    python3.10 \
-    python3-pip \
     git \
     build-essential \
-    python3-dev \
     curl \
     ca-certificates && \
     rm -rf /var/lib/apt/lists/*
 
-# Upgrade pip and install PyYAML with break-system-packages option
-RUN python3 -m pip install --upgrade pip --break-system-packages && \
-    pip3 install pyyaml --break-system-packages
+# Upgrade pip and install PyYAML
+RUN pip install --upgrade pip && \
+    pip install pyyaml
 
-# Copy Python script and shell script
+# Copy the feed.py and entrypoint.sh scripts into the container
 COPY feed.py /usr/bin/feed.py
 COPY entrypoint.sh /entrypoint.sh
 
 # Make entrypoint.sh executable
 RUN chmod +x /entrypoint.sh
 
-# Set entrypoint
+# Set the entrypoint to the shell script
 ENTRYPOINT ["/entrypoint.sh"]
+
 
 
 
